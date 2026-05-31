@@ -1,128 +1,103 @@
-Grammar Checker Tool ✨
-A comprehensive, web-based Grammar & Style Enhancement Tool powered by machine learning models and advanced rule-based systems. This tool provides real-time grammar correction, spelling fixes, and writing suggestions through an intuitive interface.
+#🧠 Grammar Checker Tool
+ML-Powered Grammatical Error Detection & Correction System
 
-🌟 Features
-Real-time Grammar Checking - Instant detection and correction of grammatical errors
+Internship Project @ TCS iON — Automate Detection and Recognition of Grammatical Errors | Dec 2024 – Mar 2025 | 125 Hours
 
-ML-Powered Predictions - Advanced machine learning models for contextual error detection
 
-Comprehensive Error Coverage - Spelling, tense, subject-verb agreement, modal verbs, and more
+📌 Overview
+A full-stack NLP web application that automatically detects and corrects grammatical errors in English text. Built as part of a remote internship with TCS iON (Tata Consultancy Services), this project combines machine learning classifiers, rule-based linguistic pipelines, and LanguageTool integration to deliver contextual grammar correction at scale.
+Why this project matters:
 
-Smart Suggestions - Context-aware corrections with severity ratings
+Bridges the gap between raw NLP research and a usable, deployed product
+Processes unstructured text through a structured ML inference pipeline
+Demonstrates end-to-end ownership — from dataset preparation to cloud deployment
 
-Grammar Scoring - Quantitative assessment of writing quality
 
-Clean Interface - Modern, user-friendly web interface
+🎯 Problem Statement
+Automated grammar correction is a core NLP challenge with applications in education, content moderation, document processing, and BI reporting pipelines. This tool solves that by building a multi-layer error detection system that goes beyond simple spell-check — catching tense inconsistencies, subject-verb disagreement, modal verb errors, and more.
 
-Open Source - Fully transparent and customizable
+✨ Key Features
+FeatureDescription🔍 Real-time Grammar CheckingInstant detection of grammatical errors as you type🤖 ML-Powered ClassificationScikit-learn models trained on Kaggle datasets for contextual error detection📊 Grammar ScoringQuantitative writing quality score (0–100) per submission🛠️ Multi-layer Error DetectionRule-based + ML + LanguageTool combined pipeline💡 Smart SuggestionsContext-aware corrections with severity ratings (low / medium / high)🌐 REST APIClean Flask API endpoints for integration into other systems☁️ Cloud DeployedLive on Hugging Face Spaces — accessible anywhere, no setup required
+
+🏗️ System Architecture
+User Input (Text)
+       │
+       ▼
+┌─────────────────────────────────────┐
+│          Frontend (HTML/CSS/JS)     │
+│     ┌──────────────────────────┐    │
+│     │   Fetch API → Flask API  │    │
+│     └──────────────────────────┘    │
+└─────────────────────────────────────┘
+       │
+       ▼
+┌─────────────────────────────────────┐
+│         Flask Backend (app.py)      │
+│                                     │
+│  ┌─────────────┐  ┌──────────────┐  │
+│  │  Rule-Based │  │ ML Predictor │  │
+│  │  Pipeline   │  │  (Joblib)    │  │
+│  └─────────────┘  └──────────────┘  │
+│         │                │          │
+│         ▼                ▼          │
+│  ┌──────────────────────────────┐   │
+│  │  LanguageTool + SpellCheck   │   │
+│  └──────────────────────────────┘   │
+└─────────────────────────────────────┘
+       │
+       ▼
+  JSON Response → Error List, Score, Corrected Text
+
+🔧 Tech Stack
+Backend
+
+Python 3.8+ — Core language
+Flask — REST API & web server
+Scikit-learn — ML model training & inference
+LanguageTool — Linguistic grammar rule engine
+PySpellChecker — Orthographic error detection
+NLTK — Text tokenization & preprocessing
+NumPy / Pandas — Data processing & feature engineering
+Joblib — Model serialization
+
+Frontend
+
+HTML5 / CSS3 / JavaScript — Clean, responsive UI
+Fetch API — Async backend communication
+
+Deployment
+
+Hugging Face Spaces — Cloud hosting & live demo
+
 
 🚀 Quick Start
-Prerequisites
-Python 3.8+
+1. Clone the repository
+bashgit clone https://github.com/anmol8329/grammar-checker-tool.git
+cd grammar-checker-tool
+2. Install dependencies
+bashpip install -r requirements.txt
+3. Download NLTK data
+bashpython -c "import nltk; nltk.download('punkt')"
+4. Train ML models
+bashpython train.py
 
-pip package manager
+📥 Download datasets from Kaggle before training.
 
-Install dependencies
-
-bash
-pip install -r requirements.txt
-Download language data (if required)
-
-bash
-python -c "import nltk; nltk.download('punkt')"
-Start the backend server
-
-bash
-python app.py
-Open the frontend
-
-Navigate to the frontend/ directory
-
-Open index.html in your browser
-
-Or serve it using a local web server:
-
-bash
+5. Start the backend server
+bashpython app.py
+6. Open the frontend
+bashcd frontend/
 python -m http.server 8000
+# Visit http://localhost:8000
 
-Generating models; Run
-
-bash
-python train.py #Generates ml models, trained via datasets
-
-Datasets can be downloaded from https://www.kaggle.com
-
-
-🏗️ Project Structure
-text
-grammar-checker/
-│
-├── app.py                    # Backend Flask server
-├── requirements.txt          # Python dependencies
-├── models/                   # ML models directory
-│   ├── best_model.joblib
-│   └── ...
-│
-├── frontend/                 # Frontend files
-│   ├── index.html           # Main interface
-│   ├── style.css           # Styling
-│   └── script.js           # Frontend logic
-│
-├── grammar_predictor.py     # ML prediction module (if exists)
-└── README.md                # This file
-📦 Dependencies
-Backend Requirements
-Flask - Web framework
-
-Scikit-learn - Machine learning
-
-LanguageTool - Grammar checking
-
-PySpellChecker - Spelling correction
-
-Joblib - Model serialization
-
-NumPy/Pandas - Data processing
-
-Flask-CORS - Cross-origin support
-
-Frontend Stack
-HTML5 - Structure
-
-CSS3 - Styling
-
-JavaScript - Interactivity
-
-Fetch API - Backend communication
-
-🎯 Usage
-Enter text in the input area
-
-Click "Check Grammar" to analyze
-
-Review errors with severity indicators
-
-View suggestions for improvement
-
-Apply corrections with one click
-
-Check your score to track progress
-
-🔧 API Endpoints
-POST /api/check - Analyze text and return errors
-
-GET /api/health - Server health check
-
-Example Request:
-
-json
-{
+📡 API Reference
+POST /api/check
+Request:
+json{
   "text": "He go to school yesterday."
 }
-Example Response:
-
-json
-{
+Response:
+json{
   "success": true,
   "errors": [
     {
@@ -139,85 +114,53 @@ json
   "word_count": 5,
   "error_count": 1
 }
-🛠️ Error Detection Types
-Spelling Errors - Common misspellings and typos
+GET /api/health
+Health check endpoint for uptime monitoring.
 
-Tense Inconsistencies - Wrong verb forms for time context
+🛠️ Error Detection Coverage
 
-Subject-Verb Agreement - Singular/plural mismatches
+✅ Spelling Errors & Typos
+✅ Tense Inconsistencies
+✅ Subject-Verb Agreement
+✅ Modal Verb Errors
+✅ Article Mistakes (a/an)
+✅ Preposition Errors
+✅ Punctuation & Capitalization
+✅ Irregular Verb Forms
 
-Modal Verb Errors - Incorrect modal constructions
 
-Article Mistakes - Wrong a/an usage
+📁 Project Structure
+grammar-checker/
+│
+├── app.py                   # Flask backend server & API routes
+├── train.py                 # ML model training pipeline
+├── grammar_predictor.py     # ML inference module
+├── requirements.txt         # Python dependencies
+│
+├── models/                  # Serialized ML models (Joblib)
+│   └── best_model.joblib
+│
+└── frontend/                # Web interface
+    ├── index.html
+    ├── style.css
+    └── script.js
 
-Preposition Errors - Incorrect prepositions
+📊 ML Pipeline
 
-Punctuation - Missing or incorrect punctuation
+Preprocessing — Tokenization, POS tagging, and feature extraction via NLTK
+Rule-Based Detection — Fast, deterministic pattern matching for common errors
+ML Classification — Scikit-learn models trained on labeled grammar datasets
+LanguageTool Integration — Deep linguistic grammar rule coverage
+Spell Checking — PySpellChecker for orthographic corrections
+Score Aggregation — Weighted scoring outputs a 0–100 quality score
 
-Capitalization - Sentence case issues
 
-Irregular Verbs - Wrong verb forms
+📜 License
+MIT License — see LICENSE for details.
 
-📊 Performance
-The system combines multiple approaches for optimal accuracy:
+👤 Author
+Anmol Tripathi
+🌐 Live Project
+📜 TCS iON Remote Internship · Dec 2024 – Mar 2025
 
-Rule-Based Detection - Fast, reliable pattern matching
-
-ML Predictions - Context-aware error classification
-
-LanguageTool Integration - Comprehensive grammar rules
-
-Spell Checker - Orthographic corrections
-
-🤝 Contributing
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-Fork the repository
-
-Create your feature branch (git checkout -b feature/AmazingFeature)
-
-Commit your changes (git commit -m 'Add some AmazingFeature')
-
-Push to the branch (git push origin feature/AmazingFeature)
-
-Open a Pull Request
-
-Areas for Contribution
-Additional error detection rules
-
-Improved ML models
-
-Enhanced frontend features
-
-Performance optimizations
-
-Documentation improvements
-
-⚠️ Known Limitations
-Requires internet connection for some features
-
-Performance may vary with very long texts
-
-Some complex grammatical structures may not be detected
-
-Models need retraining for domain-specific language
-
-🔮 Future Enhancements
-Multi-language support
-
-Browser extension
-
-Desktop application
-
-Mobile app
-
-Integration with text editors
-
-Advanced style suggestions
-
-Plagiarism detection
-
-Readability scoring
-
-📝 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+<p align="center"><i>Built with 💙 during TCS iON Remote Internship · Tata Consultancy Services</i></p>
